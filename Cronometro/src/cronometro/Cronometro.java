@@ -6,6 +6,8 @@
 package cronometro;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -112,36 +114,46 @@ public class Cronometro extends javax.swing.JFrame {
     
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
         // TODO add your handling code here:
+        //Variaveis 
         int variavel_segundos = 0;
-
         int variavel_controle_segundos = 60;
-        if(Quanridade_de_clicks == 0){
-             
-            for (; variavel_segundos <= variavel_controle_segundos; variavel_segundos++){
-                    String conversao = Integer.toString(variavel_segundos);  
-                    this.time(conversao);
-               
-             }
+        final long ax = 1000;
+        
+        
+        //fazer o programa contar até 59 (Teste)
+        for (; variavel_segundos < variavel_controle_segundos; variavel_segundos++){
+            
+            try {
+            String conversao = Integer.toString(variavel_segundos);
+            resultado.setText(conversao);
+            //Era para funcionar a pausa de 1 segundo para ir contando
+            Thread.sleep(ax);
+            } catch (Exception ex) {
+                
+            }
+        }
+        
+                
+                
+                
+            
+            
            
+           
+    }//GEN-LAST:event_IniciarActionPerformed
+    
+    public static void time(){
+        try{
+            Thread.sleep(1000);
+        }
+        catch(Exception ex){
             
         }
         
-    }//GEN-LAST:event_IniciarActionPerformed
-    public void time(String conversao) throws InterruptedException{
-        
-        resultado.setText(conversao);
-        Thread.sleep(1000);
         
     }
     
-    public JButton getIniciar(){
-       
-        return Iniciar;
-    }
-
-    public void setIniciar(JButton Iniciar) {
-        this.Iniciar = Iniciar;
-    }
+   
 
     /**
      * @param args the command line arguments
