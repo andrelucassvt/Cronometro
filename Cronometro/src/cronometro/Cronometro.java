@@ -42,7 +42,8 @@ public class Cronometro extends javax.swing.JFrame {
         Voltar = new javax.swing.JButton();
         Iniciar = new javax.swing.JButton();
         resultado = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        resultadoEsquerda = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
 
@@ -75,8 +76,11 @@ public class Cronometro extends javax.swing.JFrame {
         resultado.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         resultado.setText("00");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("00");
+        resultadoEsquerda.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        resultadoEsquerda.setText("00");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setText(":");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,25 +92,28 @@ public class Cronometro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Iniciar)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(resultadoEsquerda)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel2)
+                .addGap(1, 1, 1)
                 .addComponent(resultado)
-                .addGap(118, 118, 118))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(resultado)
-                    .addComponent(jLabel1))
-                .addGap(69, 69, 69)
+                    .addComponent(resultadoEsquerda)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Voltar)
                     .addComponent(Iniciar))
-                .addGap(172, 172, 172))
+                .addGap(54, 54, 54))
         );
 
         pack();
@@ -116,14 +123,33 @@ public class Cronometro extends javax.swing.JFrame {
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
 
         // Nesse caso, é necessário usar uma THREAD para usar o sleep:
+        boolean variavel_auxiliar = true;
+       // while(variavel_auxiliar){
+        
         new Thread(new Runnable() {
             public void run() {
-                for(int seg = 0; seg <= 59; seg++) {
-                    if(seg < 10) {
-                        resultado.setText( String.valueOf("0"+seg) );
+   
+                int segundos = 0;
+                int minutos = 0;
+                
+                for(; segundos < 60; segundos++) {
+                    if(segundos < 10) {
+                        resultado.setText( String.valueOf("0"+segundos) );
                     } else {
-                        resultado.setText( String.valueOf(seg) );
+                        resultado.setText( String.valueOf(segundos) );
                     }
+                    //Aumentando os minutos
+                    //parte para adicionar os minutos
+                    if(segundos == 60 && minutos < 10){
+                        minutos++;
+                        segundos =0;
+                        resultadoEsquerda.setText( String.valueOf("0"+minutos));
+                    }else if (segundos == 60 && minutos > 10){
+                        segundos =0;
+                        minutos++;
+                        resultadoEsquerda.setText( String.valueOf(minutos));
+                    }
+                    
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -132,7 +158,8 @@ public class Cronometro extends javax.swing.JFrame {
                 }
             }
         }).start();
-
+        
+      //  }//Fim-While
     }//GEN-LAST:event_IniciarActionPerformed
 
     public static void time() {
@@ -185,10 +212,11 @@ public class Cronometro extends javax.swing.JFrame {
     private javax.swing.JButton Iniciar;
     private javax.swing.JButton Voltar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel resultado;
+    private javax.swing.JLabel resultadoEsquerda;
     // End of variables declaration//GEN-END:variables
 
 }
