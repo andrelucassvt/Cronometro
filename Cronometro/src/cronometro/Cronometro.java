@@ -123,16 +123,16 @@ public class Cronometro extends javax.swing.JFrame {
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
 
         // Nesse caso, é necessário usar uma THREAD para usar o sleep:
-        boolean variavel_auxiliar = true;
-       // while(variavel_auxiliar){
+        Armazenar Armazenar = new Armazenar();
+        //Variavel
+        if(Quanridade_de_clicks == 0){
         
-        new Thread(new Runnable() {
-            public void run() {
-   
-                int segundos = 0;
-                int minutos = 0;
+       new Thread(new Runnable() {
+            public void run(){ 
+            int segundos = 0;
+            int minutos = 0;
                 
-                for(; segundos < 60; segundos++) {
+                for(; segundos <=60; segundos++) {
                     if(segundos < 10) {
                         resultado.setText( String.valueOf("0"+segundos) );
                     } else {
@@ -141,25 +141,30 @@ public class Cronometro extends javax.swing.JFrame {
                     //Aumentando os minutos
                     //parte para adicionar os minutos
                     if(segundos == 60 && minutos < 10){
+                        segundos = 0;
                         minutos++;
-                        segundos =0;
-                        resultadoEsquerda.setText( String.valueOf("0"+minutos));
                     }else if (segundos == 60 && minutos > 10){
                         segundos =0;
                         minutos++;
-                        resultadoEsquerda.setText( String.valueOf(minutos));
                     }
-                    
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-            }
+                
+                
+            }    
         }).start();
         
-      //  }//Fim-While
+        Iniciar.setText("Parar");
+        Quanridade_de_clicks = 1;
+        
+        }
+            
+        
+   
     }//GEN-LAST:event_IniciarActionPerformed
 
     public static void time() {
