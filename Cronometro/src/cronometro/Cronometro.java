@@ -119,34 +119,47 @@ public class Cronometro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     int Quanridade_de_clicks = 0;
+    boolean pediuParada = false;
+    
+    int segundos = 0;
+    int minutos = 0;
 
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
-
-        // Nesse caso, é necessário usar uma THREAD para usar o sleep:
-        Armazenar Armazenar = new Armazenar();
-        //Variavel
-        if(Quanridade_de_clicks == 0){
-        
-       new Thread(new Runnable() {
+    	Thread cronometro = new Thread(new Runnable() {
             public void run(){ 
-            int segundos = 0;
-            int minutos = 0;
                 
-                for(; segundos <=60; segundos++) {
+                for(; segundos <= 60; segundos++) {
+                	if(pediuParada) {
+                		pediuParada = false;
+                		break;
+                	}
+                	
                     if(segundos < 10) {
                         resultado.setText( String.valueOf("0"+segundos) );
+                        
                     } else {
                         resultado.setText( String.valueOf(segundos) );
+  
                     }
                     //Aumentando os minutos
                     //parte para adicionar os minutos
                     if(segundos == 60 && minutos < 10){
                         segundos = 0;
                         minutos++;
-                    }else if (segundos == 60 && minutos > 10){
-                        segundos =0;
-                        minutos++;
+                        
+                        if(segundos < 10) {
+                            resultado.setText( String.valueOf("0"+segundos) );
+                        } else {
+                            resultado.setText( String.valueOf(segundos) );
+                        }
+                        
+                        if(minutos < 10) {
+                        	resultadoEsquerda.setText(String.valueOf("0" + minutos));
+                        } else {
+                        	resultadoEsquerda.setText(String.valueOf(minutos));
+                        }
                     }
+                    
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -156,11 +169,21 @@ public class Cronometro extends javax.swing.JFrame {
                 
                 
             }    
-        }).start();
-        
-        Iniciar.setText("Parar");
-        Quanridade_de_clicks = 1;
-        
+        });
+        // Nesse caso, é necessário usar uma THREAD para usar o sleep:
+        Armazenar Armazenar = new Armazenar();
+        //Variavel
+        if(Quanridade_de_clicks == 0){
+        	
+        	cronometro.start();
+	        
+	        Iniciar.setText("Parar");
+	        Quanridade_de_clicks = 1;
+	        
+        } else if (Quanridade_de_clicks == 1) {
+        	Quanridade_de_clicks = 0;
+        	pediuParada = true;
+        	Iniciar.setText("Retomar");
         }
             
         
