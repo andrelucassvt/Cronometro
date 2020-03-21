@@ -63,7 +63,12 @@ public class Cronometro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Voltar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Voltar.setText("Voltar");
+        Voltar.setText("Zerar");
+        Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarActionPerformed(evt);
+            }
+        });
 
         Iniciar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Iniciar.setText("Iniciar");
@@ -87,19 +92,21 @@ public class Cronometro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Voltar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Iniciar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Voltar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Iniciar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(resultadoEsquerda)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel2)
+                        .addGap(1, 1, 1)
+                        .addComponent(resultado)
+                        .addGap(0, 113, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(resultadoEsquerda)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel2)
-                .addGap(1, 1, 1)
-                .addComponent(resultado)
-                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,8 +133,12 @@ public class Cronometro extends javax.swing.JFrame {
 
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
     	Thread cronometro = new Thread(new Runnable() {
-            public void run(){ 
-                
+            public void run(){
+                //Parte criada para o quando o botao "Zerar" for acionado
+                pediuParada = false;
+                segundos = 0;
+                minutos = 0;
+                //FIM
                 for(; segundos <= 60; segundos++) {
                 	if(pediuParada) {
                 		pediuParada = false;
@@ -170,8 +181,7 @@ public class Cronometro extends javax.swing.JFrame {
                 
             }    
         });
-        // Nesse caso, é necessário usar uma THREAD para usar o sleep:
-        Armazenar Armazenar = new Armazenar();
+ 
         //Variavel
         if(Quanridade_de_clicks == 0){
         	
@@ -189,6 +199,16 @@ public class Cronometro extends javax.swing.JFrame {
         
    
     }//GEN-LAST:event_IniciarActionPerformed
+
+    private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
+        resultadoEsquerda.setText(String.valueOf("0"+0));
+        resultado.setText(String.valueOf("0"+0));
+        pediuParada = true;
+        Quanridade_de_clicks = 0;
+        
+        
+        
+    }//GEN-LAST:event_VoltarActionPerformed
 
     public static void time() {
         try {
