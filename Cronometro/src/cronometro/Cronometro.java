@@ -125,9 +125,9 @@ public class Cronometro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    int Quanridade_de_clicks = 0;
+    int QuanridadeDeClicks = 0;
     boolean pediuParada = false;
-    
+    int ClickZerar = 0;
     int segundos = 0;
     int minutos = 0;
 
@@ -135,9 +135,12 @@ public class Cronometro extends javax.swing.JFrame {
     	Thread cronometro = new Thread(new Runnable() {
             public void run(){
                 //Parte criada para o quando o botao "Zerar" for acionado
+                if(ClickZerar == 1){
                 pediuParada = false;
                 segundos = 0;
                 minutos = 0;
+                ClickZerar = 0;
+                }
                 //FIM
                 for(; segundos <= 60; segundos++) {
                 	if(pediuParada) {
@@ -183,15 +186,15 @@ public class Cronometro extends javax.swing.JFrame {
         });
  
         //Variavel
-        if(Quanridade_de_clicks == 0){
+        if(QuanridadeDeClicks == 0){
         	
         	cronometro.start();
 	        
 	        Iniciar.setText("Parar");
-	        Quanridade_de_clicks = 1;
+                QuanridadeDeClicks = 1;
 	        
-        } else if (Quanridade_de_clicks == 1) {
-        	Quanridade_de_clicks = 0;
+        } else if (QuanridadeDeClicks == 1) {
+        	QuanridadeDeClicks = 0;
         	pediuParada = true;
         	Iniciar.setText("Retomar");
         }
@@ -204,8 +207,8 @@ public class Cronometro extends javax.swing.JFrame {
         resultadoEsquerda.setText(String.valueOf("0"+0));
         resultado.setText(String.valueOf("0"+0));
         pediuParada = true;
-        Quanridade_de_clicks = 0;
-        
+        QuanridadeDeClicks = 0;
+        ClickZerar = 1;
         
         
     }//GEN-LAST:event_VoltarActionPerformed
