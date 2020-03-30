@@ -179,7 +179,7 @@ public class Cronometro extends javax.swing.JFrame {
                     }
                     //Aumentando os minutos
                     //parte para adicionar os minutos
-                    if(segundos == 60 && minutos < 10){
+                    if(segundos == 60){
                         segundos = 0;
                         minutos++;
                         
