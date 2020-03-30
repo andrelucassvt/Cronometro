@@ -175,7 +175,6 @@ public class Cronometro extends javax.swing.JFrame {
                         
                     } else {
                         resultado.setText( String.valueOf(segundos) );
-  
                     }
                     //Aumentando os minutos
                     //parte para adicionar os minutos
